@@ -3,6 +3,7 @@ import { ref, defineComponent } from "vue";
 import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
 import axios from "axios";
 import { useSearchResultStore } from "../stores/searchResult"; // 引入 Pinia 中自定義的 searchResult
+import SearchBar from "../components/SearchBar.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -105,6 +106,7 @@ async function initial() {
   <div>This is search page.</div>
   <p>Search Keyword is: {{ searchResult.searchKeyword }}</p>
   <p>目前 load 到第幾頁了： {{ page }}</p>
+  <SearchBar />
   <div v-for="photo in searchResult.showPhotos" :key="photo.id">
     <!-- portrait 會統一尺寸，還不錯，就用這個吧 -->
     <img :src="photo.src.portrait" />

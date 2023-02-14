@@ -88,6 +88,8 @@ initial();
 async function initial() {
   try {
     page = 1;
+    // 重置 Pinia State 資料
+    searchResult.$reset();
     const res = await loadPhotos();
     // console.warn("initial res", res);
     // 判斷搜尋結果(是否有上下一頁、目前是否有圖片)

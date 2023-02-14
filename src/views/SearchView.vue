@@ -13,7 +13,7 @@ const searchKeyword = ref("");
 const judgeResultMessage = ref("");
 
 // 目前是否仍在 load 資料
-let ajaxStatus = false;
+let loadingPhotosStatus = false;
 // 每頁幾筆
 let perPage = 10;
 // 第幾頁
@@ -39,7 +39,7 @@ loadPhotos();
 function loadPhotos() {
   const searchURL = `https://api.pexels.com/v1/search?query=${searchKeyword.value}&per_page=${perPage}&page=${page}`;
 
-  if (ajaxStatus) {
+  if (loadingPhotosStatus) {
     return;
   }
 

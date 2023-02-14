@@ -70,16 +70,16 @@ async function loadMorePhotos() {
   }
 }
 
-// 沒有輸入關鍵字
-if (!haveSearchKeyword()) {
+// 有輸入關鍵字
+if (haveSearchKeyword()) {
+  // 使用 Pinia 儲存該關鍵字
+  searchResult.updateSearchKeyword(route.query.q);
+} else {
   // 導回首頁
   router.push({
     path: "/",
   });
 }
-// 有輸入關鍵字
-// 使用 Pinia 儲存該關鍵字
-searchResult.updateSearchKeyword(route.query.q);
 
 initial();
 /**

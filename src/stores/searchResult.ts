@@ -63,6 +63,9 @@ export const useSearchResultStore = defineStore("searchResult", {
      * 是最後一頁
      */
     isLastPage(photoSearchRes: IPhotoSearchResult) {
+      if (photoSearchRes.page === 1 && photoSearchRes.next_page === undefined) {
+        return true;
+      }
       if (photoSearchRes.prev_page && photoSearchRes.next_page === undefined) {
         return true;
       }

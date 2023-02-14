@@ -100,6 +100,17 @@ async function initial() {
     loadingPhotosStatus = false;
   }
 }
+
+// 進到頁面後，使用者直接修改網址
+// (這樣會造成 route 跳轉，進而觸發此 function)
+onBeforeRouteUpdate((to, from) => {
+  // 不同搜尋關鍵字
+  if (to.query.q !== from.query.q) {
+    // 更新搜尋關鍵字
+    searchKeyword.value = to.query.q as string;
+    initial();
+  }
+});
 </script>
 
 <template>

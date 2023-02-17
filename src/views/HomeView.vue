@@ -4,7 +4,10 @@ import RandomSearchButton from "../components/RandomSearchButton.vue";
 </script>
 
 <template>
-  <main>This is Home Page</main>
-  <SearchBar />
-  <RandomSearchButton />
+  <div class="h-screen flex flex-col justify-center items-center">
+    <SearchBar />
+    <div class="flex justify-center items-center mt-6 w-full">
+      <RandomSearchButton />
+    </div>
+  </div>
 </template>

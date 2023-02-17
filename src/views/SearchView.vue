@@ -4,6 +4,7 @@ import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
 import axios from "axios";
 import { useSearchResultStore } from "../stores/searchResult"; // 引入 Pinia 中自定義的 searchResult
 import SearchBar from "../components/SearchBar.vue";
+import PhotoCard from "../components/PhotoCard.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -120,14 +121,17 @@ onBeforeRouteUpdate((to, from) => {
   <p>Search Keyword is: {{ searchResult.searchKeyword }}</p>
   <p>目前 load 到第幾頁了： {{ page }}</p>
   <SearchBar />
-  <div v-for="photo in searchResult.showPhotos" :key="photo.id">
-    <!-- portrait 會統一尺寸，還不錯，就用這個吧 -->
-    <img :src="photo.src.portrait" />
+  <!-- 圖片搜尋結果 -->
+  <div class="flex flex-wrap justify-evenly items-center">
+    <PhotoCard
+      v-for="photo in searchResult.showPhotos"
+      :key="photo.id"
+      :singlePhotoData="photo"
+      class="my-2 sm:my-4 xl:mx-1 w-full sm:w-5/12 xl:w-3/12"
+    />
   </div>
   <!-- TODO: 如果沒有更多圖片了，則不顯示此按鈕，並顯示一個區塊提示使用者已經看完所有圖片 -->
   <button type="button" @click="() => loadMorePhotos()">
     load more photos
   </button>
 </template>
-
-<style scoped></style>

@@ -44,17 +44,22 @@ onBeforeRouteUpdate((to, from) => {
 </script>
 
 <template>
-  <div>
+  <div
+    class="flex justify-center items-center py-px pr-px sm:w-96 h-11 bg-white border border-blue-700 rounded-full overflow-hidden"
+  >
     <input
       type="text"
       placeholder="今天想搜尋甚麼圖片呢？"
+      class="pl-3 w-3/4 sm:w-5/6 h-full outline-none"
       v-model="typingSearchKeyword"
       @keyup.enter="doASearch"
     />
-    <button type="button" @click="doASearch">
-      <img src="../images/icon-search.svg" />
+    <button
+      type="button"
+      @click="doASearch"
+      class="flex justify-center items-center w-1/4 sm:w-1/6 h-full bg-blue-700 text-white border border-blue-700 rounded-full overflow-hidden"
+    >
+      <img src="../images/icon-search.svg" class="w-4 h-4" />
     </button>
   </div>
 </template>
-
-<style scoped></style>

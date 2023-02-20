@@ -3,12 +3,15 @@ import { ref, defineComponent } from "vue";
 import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
 import axios from "axios";
 import { useSearchResultStore } from "../stores/searchResult"; // 引入 Pinia 中自定義的 searchResult
+import { useFullScreenPhotoStore } from "../stores/fullScreenPhoto"; // 引入 Pinia 中自定義的 fullScreenPhoto
 import SearchBar from "../components/SearchBar.vue";
 import PhotoCard from "../components/PhotoCard.vue";
+import FullScreenPhotoCard from "../components/FullScreenPhotoCard.vue";
 
 const route = useRoute();
 const router = useRouter();
 const searchResult = useSearchResultStore(); // 取出 searchResult 內的方法
+const fullScreenPhoto = useFullScreenPhotoStore(); // 取出 fullScreenPhoto 內的方法
 // 搜尋關鍵字
 const searchKeyword = ref("");
 // 判斷搜尋結果的關鍵字
@@ -71,6 +74,14 @@ async function loadMorePhotos() {
   }
 }
 
+/**
+ * 點擊小圖，全螢幕顯示圖片
+ */
+function showFullScreenPhoto(photo) {
+  fullScreenPhoto.updateShowPhoto(photo);
+  fullScreenPhoto.updateShowStatus(true);
+}
+
 // 有輸入關鍵字
 if (haveSearchKeyword()) {
   // 使用 Pinia 儲存該關鍵字
@@ -120,7 +131,8 @@ onBeforeRouteUpdate((to, from) => {
   <div>This is search page.</div>
   <p>Search Keyword is: {{ searchResult.searchKeyword }}</p>
   <p>目前 load 到第幾頁了： {{ page }}</p>
-  <SearchBar />
+  <!-- 全螢幕顯示圖片 -->
+  <FullScreenPhotoCard />
   <!-- 圖片搜尋結果 -->
   <div class="flex flex-wrap justify-evenly items-center">
     <PhotoCard
@@ -128,6 +140,7 @@ onBeforeRouteUpdate((to, from) => {
       :key="photo.id"
       :singlePhotoData="photo"
       class="my-2 sm:my-4 xl:mx-1 w-full sm:w-5/12 xl:w-3/12"
+      @click="showFullScreenPhoto(photo)"
     />
   </div>
   <!-- TODO: 如果沒有更多圖片了，則不顯示此按鈕，並顯示一個區塊提示使用者已經看完所有圖片 -->

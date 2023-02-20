@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRouter, onBeforeRouteUpdate } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 // 上一個搜尋關鍵字
 const previousSearchKeyword = ref("");
 // 正在輸入的搜尋關鍵字(？
 const typingSearchKeyword = ref("");
+const route = useRoute();
 const router = useRouter();
 function doASearch() {
   console.log(typingSearchKeyword.value);
@@ -33,14 +34,8 @@ function doASearch() {
   });
 }
 
-// 使用者在 SearchBar 重新輸入不同關鍵字
-// (因為這樣才會造成 route 跳轉，進而觸發此 function)
-onBeforeRouteUpdate((to, from) => {
-  console.log("SearchBar, onBeforeRouteUpdate");
-  if (to.query.q !== from.query.q) {
-    typingSearchKeyword.value = to.query.q as string;
-  }
-});
+// 首次渲染此 component 時從網址抓取相對應參數作為 typingSearchKeyword 的值
+typingSearchKeyword.value = route.query.q as string;
 </script>
 
 <template>

@@ -128,9 +128,9 @@ onBeforeRouteUpdate((to, from) => {
 </script>
 
 <template>
-  <div>This is search page.</div>
-  <p>Search Keyword is: {{ searchResult.searchKeyword }}</p>
-  <p>目前 load 到第幾頁了： {{ page }}</p>
+  <div class="sticky xl:static top-3 flex justify-center items-center my-5">
+    <SearchBar />
+  </div>
   <!-- 全螢幕顯示圖片 -->
   <FullScreenPhotoCard />
   <!-- 圖片搜尋結果 -->

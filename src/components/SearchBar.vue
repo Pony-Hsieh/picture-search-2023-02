@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
 
 // 上一個搜尋關鍵字
 const previousSearchKeyword = ref("");
@@ -33,6 +33,14 @@ function doASearch() {
     },
   });
 }
+
+onBeforeRouteUpdate((to, from) => {
+  // 不同搜尋關鍵字
+  if (to.query.q !== from.query.q) {
+    // 更新搜尋關鍵字
+    typingSearchKeyword.value = to.query.q as string;
+  }
+});
 
 // 首次渲染此 component 時從網址抓取相對應參數作為 typingSearchKeyword 的值
 typingSearchKeyword.value = route.query.q as string;

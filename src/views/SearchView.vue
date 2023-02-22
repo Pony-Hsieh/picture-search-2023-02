@@ -7,6 +7,7 @@ import { useFullScreenPhotoStore } from "../stores/fullScreenPhoto"; // 引入 P
 import SearchBar from "../components/SearchBar.vue";
 import PhotoCard from "../components/PhotoCard.vue";
 import FullScreenPhotoCard from "../components/FullScreenPhotoCard.vue";
+import RandomSearchButton from "../components/RandomSearchButton.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -128,7 +129,7 @@ onBeforeRouteUpdate((to, from) => {
 </script>
 
 <template>
-  <div class="sticky xl:static top-3 flex justify-center items-center my-5">
+  <div class="sticky xl:static top-6 flex justify-center items-center my-6">
     <SearchBar />
   </div>
   <!-- 全螢幕顯示圖片 -->
@@ -143,8 +144,25 @@ onBeforeRouteUpdate((to, from) => {
       @click="showFullScreenPhoto(photo)"
     />
   </div>
-  <!-- TODO: 如果沒有更多圖片了，則不顯示此按鈕，並顯示一個區塊提示使用者已經看完所有圖片 -->
-  <button type="button" @click="() => loadMorePhotos()">
-    load more photos
-  </button>
+  <div
+    v-show="searchResult.showPhotos.length !== 0"
+    class="flex justify-center items-center py-12"
+  >
+    <!-- TODO: 如果沒有更多圖片了，則不顯示此按鈕，並顯示一個區塊提示使用者已經看完所有圖片 -->
+    <button
+      type="button"
+      class="px-4 py-2 bg-blue-700 text-white border border-blue-700 rounded-full"
+      @click="() => loadMorePhotos()"
+    >
+      load more photos
+    </button>
+  </div>
+  <div v-show="searchResult.showPhotos.length === 0">
+    <p class="flex justify-center items-center py-6">
+      很抱歉，圖庫中沒有找到相關的圖片
+    </p>
+    <div class="flex justify-center items-center mt-6 w-full">
+      <RandomSearchButton />
+    </div>
+  </div>
 </template>

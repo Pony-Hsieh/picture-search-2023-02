@@ -78,11 +78,3 @@ export const useSearchResultStore = defineStore("searchResult", {
     },
   },
 });
-
-/**
- * note:
- * 透過 store 的 $reset() 方法將 state 重置為初始值
-    const store = useStore();
-    store.$reset();
- * 
- */

@@ -106,7 +106,6 @@ async function initial() {
     // 重置 Pinia State 資料
     searchResult.$reset();
     const res = await loadPhotos();
-    // console.warn("initial res", res);
     // 判斷搜尋結果(是否有上下一頁、目前是否有圖片)
     searchResult.judgeSearchResult(res.data);
     // 更新圖片顯示陣列
@@ -148,6 +147,7 @@ onBeforeRouteUpdate((to, from) => {
       @click="showFullScreenPhoto(photo)"
     />
   </div>
+  <!-- 如果有搜尋結果 -->
   <div
     v-show="searchResult.showPhotos.length !== 0"
     class="flex justify-center items-center py-12"
@@ -162,6 +162,7 @@ onBeforeRouteUpdate((to, from) => {
       load more photos
     </button>
   </div>
+  <!-- 如果沒有搜尋結果 -->
   <div v-show="searchResult.showPhotos.length === 0">
     <p class="flex justify-center items-center py-6">
       很抱歉，圖庫中沒有找到相關的圖片

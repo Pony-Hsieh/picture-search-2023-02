@@ -56,6 +56,10 @@ function loadPhotos() {
  * 載入更多圖片
  */
 async function loadMorePhotos() {
+  if (searchResult.isLastPage) {
+    console.log("目前是最後一頁");
+    return;
+  }
   try {
     page++;
     const res = await loadPhotos();

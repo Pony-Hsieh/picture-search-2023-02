@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineComponent } from "vue";
+import { ref } from "vue";
 import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
 import axios from "axios";
 import { useSearchResultStore } from "../stores/searchResult"; // 引入 Pinia 中自定義的 searchResult
@@ -15,8 +15,6 @@ const searchResult = useSearchResultStore(); // 取出 searchResult 內的方法
 const fullScreenPhoto = useFullScreenPhotoStore(); // 取出 fullScreenPhoto 內的方法
 // 搜尋關鍵字
 const searchKeyword = ref("");
-// 判斷搜尋結果的關鍵字
-const judgeResultMessage = ref("");
 
 // 目前是否仍在 load 資料
 let loadingPhotosStatus = false;

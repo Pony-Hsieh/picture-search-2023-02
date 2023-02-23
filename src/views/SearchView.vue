@@ -8,6 +8,7 @@ import SearchBar from "../components/SearchBar.vue";
 import PhotoCard from "../components/PhotoCard.vue";
 import FullScreenPhotoCard from "../components/FullScreenPhotoCard.vue";
 import RandomSearchButton from "../components/RandomSearchButton.vue";
+import type ISinglePhoto from "../types/SinglePhotoType";
 
 const route = useRoute();
 const router = useRouter();
@@ -80,7 +81,7 @@ async function loadMorePhotos() {
 /**
  * 點擊小圖，全螢幕顯示圖片
  */
-function showFullScreenPhoto(photo) {
+function showFullScreenPhoto(photo: ISinglePhoto) {
   fullScreenPhoto.updateShowPhoto(photo);
   fullScreenPhoto.updateShowStatus(true);
 }
@@ -88,7 +89,7 @@ function showFullScreenPhoto(photo) {
 // 有輸入關鍵字
 if (haveSearchKeyword()) {
   // 使用 Pinia 儲存該關鍵字
-  searchResult.updateSearchKeyword(route.query.q);
+  searchResult.updateSearchKeyword(route.query.q as string);
 } else {
   // 導回首頁
   router.push({

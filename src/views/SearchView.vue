@@ -111,6 +111,8 @@ async function initial() {
     searchResult.judgeSearchResult(res.data);
     // 更新圖片顯示陣列
     searchResult.updateShowingPhotosData(res.data.photos);
+    // 判斷是否為最後一頁
+    searchResult.judgeIsLastPage(res.data);
   } catch (err) {
     console.error(err);
   } finally {
@@ -150,8 +152,9 @@ onBeforeRouteUpdate((to, from) => {
     v-show="searchResult.showPhotos.length !== 0"
     class="flex justify-center items-center py-12"
   >
-    <!-- TODO: 如果沒有更多圖片了，則不顯示此按鈕，並顯示一個區塊提示使用者已經看完所有圖片 -->
+    <p v-show="searchResult.isLastPage">您已看完所有圖片</p>
     <button
+      v-show="!searchResult.isLastPage"
       type="button"
       class="px-4 py-2 bg-blue-700 text-white border border-blue-700 rounded-full"
       @click="() => loadMorePhotos()"

@@ -16,6 +16,8 @@ export const useSearchResultStore = defineStore("searchResult", {
     haveNextPage: false,
     // 資料庫中是否有圖片
     havePhotosInDatabase: false,
+    // 是否為最後一頁
+    isLastPage: false,
   }),
   actions: {
     /**
@@ -60,15 +62,19 @@ export const useSearchResultStore = defineStore("searchResult", {
       this.showPhotos.push(...photos);
     },
     /**
-     * 是最後一頁
+     * 判斷是否為最後一頁
      */
-    isLastPage(photoSearchRes: IPhotoSearchResult) {
+    judgeIsLastPage(photoSearchRes: IPhotoSearchResult) {
       if (photoSearchRes.page === 1 && photoSearchRes.next_page === undefined) {
+        this.isLastPage = true;
         return true;
       }
       if (photoSearchRes.prev_page && photoSearchRes.next_page === undefined) {
+        this.isLastPage = true;
         return true;
       }
+      this.isLastPage = false;
+      return false;
     },
   },
 });

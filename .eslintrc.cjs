@@ -15,4 +15,5 @@ module.exports = {
   env: {
     node: true,
   },
+  ignorePatterns: ["dist/*"], // ignore all files in dist folder
 };

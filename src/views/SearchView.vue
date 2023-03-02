@@ -16,11 +16,13 @@ const searchResult = useSearchResultStore(); // 取出 searchResult 內的方法
 const fullScreenPhoto = useFullScreenPhotoStore(); // 取出 fullScreenPhoto 內的方法
 // 搜尋關鍵字
 const searchKeyword = ref("");
+// 網頁可見區域寬度
+const clientWidth = document.body.clientWidth;
 
 // 目前是否仍在 load 資料
 let loadingPhotosStatus = false;
 // 每頁幾筆
-let perPage = 10;
+let perPage = 5;
 // 第幾頁
 let page = 1;
 
@@ -35,6 +37,27 @@ function haveSearchKeyword() {
     return false;
   }
   return true;
+}
+
+/**
+ * 依據網頁可見區域寬度決定一次要 load 多少圖片
+ */
+function adjustLoadPhotosQuantity() {
+  if (clientWidth < 640) {
+    // default
+    perPage = 5;
+    return;
+  }
+  if (clientWidth >= 640 && clientWidth < 1280) {
+    // sm
+    perPage = 10;
+    return;
+  }
+  if (clientWidth >= 1280) {
+    // xl
+    perPage = 15;
+    return;
+  }
 }
 
 /**
@@ -104,6 +127,8 @@ initial();
 async function initial() {
   try {
     page = 1;
+    // 依據網頁可見區域寬度決定一次要 load 多少圖片
+    adjustLoadPhotosQuantity();
     // 重置 Pinia State 資料
     searchResult.$reset();
     const res = await loadPhotos();

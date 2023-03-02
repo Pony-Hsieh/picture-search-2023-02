@@ -1,5 +1,8 @@
 <template>
-  <div class="flex justify-center items-center">
+  <div
+    class="flex justify-center items-center"
+    :style="{ 'background-color': singlePhotoData.avg_color }"
+  >
     <img
       :src="singlePhotoData.src.portrait"
       :alt="singlePhotoData.alt"

@@ -92,6 +92,8 @@ async function loadMorePhotos() {
     searchResult.judgeSearchResult(res.data);
     // 更新圖片顯示陣列
     searchResult.updateShowingPhotosData(res.data.photos);
+    // 判斷是否為最後一頁
+    searchResult.judgeIsLastPage(res.data);
   } catch (err) {
     // 失敗的話則將剛剛 + 1 的 page 減回來
     page--;

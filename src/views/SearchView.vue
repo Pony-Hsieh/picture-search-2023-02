@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
 import axios from "axios";
+import Loading from "vue-loading-overlay";
 import { useSearchResultStore } from "../stores/searchResult"; // 引入 Pinia 中自定義的 searchResult
 import { useFullScreenPhotoStore } from "../stores/fullScreenPhoto"; // 引入 Pinia 中自定義的 fullScreenPhoto
 import SearchBar from "../components/SearchBar.vue";
@@ -20,7 +21,13 @@ const searchKeyword = ref("");
 const clientWidth = document.body.clientWidth;
 
 // 目前是否仍在 load 資料
-let loadingPhotosStatus = false;
+const loadingPhotosStatus = ref(false);
+const loadingSetting = {
+  // Tailwind CSS blue-700
+  color: "#1d4ed8",
+  // Tailwind CSS bg-zinc-900
+  backgroundColor: "#18181b",
+};
 // 每頁幾筆
 let perPage = 5;
 // 第幾頁
@@ -66,9 +73,10 @@ function adjustLoadPhotosQuantity() {
 function loadPhotos() {
   const searchURL = `https://api.pexels.com/v1/search?query=${searchKeyword.value}&per_page=${perPage}&page=${page}`;
   // const searchURL = `https://api.pexels.com/v1/search?query=cube&per_page=${perPage}&page=165`; // test for judge last page function
-  if (loadingPhotosStatus) {
+  if (loadingPhotosStatus.value) {
     throw new Error("目前仍在請求圖片中，請勿重複請求");
   }
+  loadingPhotosStatus.value = true;
   return axios.get(searchURL, {
     headers: {
       Authorization: import.meta.env.VITE_API_AUTH,
@@ -99,7 +107,7 @@ async function loadMorePhotos() {
     page--;
     console.error(err);
   } finally {
-    loadingPhotosStatus = false;
+    loadingPhotosStatus.value = false;
   }
 }
 
@@ -143,7 +151,7 @@ async function initial() {
   } catch (err) {
     console.error(err);
   } finally {
-    loadingPhotosStatus = false;
+    loadingPhotosStatus.value = false;
   }
 }
 
@@ -160,6 +168,10 @@ onBeforeRouteUpdate((to, from) => {
 </script>
 
 <template>
+  <loading :active="loadingPhotosStatus"
+    :color="loadingSetting.color"
+    :backgroundColor="loadingSetting.backgroundColor"
+  />
   <div class="sticky xl:static top-6 flex justify-center items-center my-6">
     <SearchBar />
   </div>

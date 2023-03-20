@@ -184,7 +184,8 @@ onBeforeRouteUpdate((to, from) => {
 </style>
 
 <template>
-  <loading :active="loadingPhotosStatus"
+  <loading
+    :active="loadingPhotosStatus"
     :color="loadingSetting.color"
     :backgroundColor="loadingSetting.backgroundColor"
   />

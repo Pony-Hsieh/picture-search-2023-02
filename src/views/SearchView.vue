@@ -171,12 +171,14 @@ onBeforeRouteUpdate((to, from) => {
 .grid-auto-rows {
   grid-auto-rows: 80vh;
 }
-@media (min-width: 600px) {
+// Tailwind CSS sm
+@media (min-width: 640px) {
   .grid-auto-rows {
     grid-auto-rows: 50vh;
   }
 }
-@media (min-width: 1200px) {
+// Tailwind CSS xl
+@media (min-width: 1280px) {
   .grid-auto-rows {
     grid-auto-rows: 45vh;
   }

@@ -167,6 +167,22 @@ onBeforeRouteUpdate((to, from) => {
 });
 </script>
 
+<style scoped>
+.grid-auto-rows {
+  grid-auto-rows: 80vh;
+}
+@media (min-width: 600px) {
+  .grid-auto-rows {
+    grid-auto-rows: 50vh;
+  }
+}
+@media (min-width: 1200px) {
+  .grid-auto-rows {
+    grid-auto-rows: 45vh;
+  }
+}
+</style>
+
 <template>
   <loading :active="loadingPhotosStatus"
     :color="loadingSetting.color"
@@ -178,12 +194,14 @@ onBeforeRouteUpdate((to, from) => {
   <!-- 全螢幕顯示圖片 -->
   <FullScreenPhotoCard />
   <!-- 圖片搜尋結果 -->
-  <div class="flex flex-wrap justify-evenly items-center">
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:px-5 grid-auto-rows"
+  >
     <PhotoCard
       v-for="photo in searchResult.showPhotos"
       :key="photo.id"
       :singlePhotoData="photo"
-      class="my-2 sm:my-4 xl:mx-1 w-full sm:w-5/12 xl:w-3/12"
+      class="overflow-hidden max-w-full object-contain"
       @click="showFullScreenPhoto(photo)"
     />
   </div>

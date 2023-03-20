@@ -16,6 +16,7 @@
     "pinia": "^2.0.28",
     "random-words": "^1.2.1",
     "vue": "^3.2.45",
+    "vue-loading-overlay": "^6.0.3",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {

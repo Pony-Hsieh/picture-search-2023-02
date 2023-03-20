@@ -203,7 +203,7 @@ onBeforeRouteUpdate((to, from) => {
     </button>
   </div>
   <!-- 如果沒有搜尋結果 -->
-  <div v-show="searchResult.showPhotos.length === 0">
+  <div v-show="!loadingPhotosStatus && searchResult.showPhotos.length === 0">
     <p class="flex justify-center items-center py-6">
       很抱歉，圖庫中沒有找到相關的圖片
     </p>

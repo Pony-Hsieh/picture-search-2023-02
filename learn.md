@@ -42,6 +42,7 @@
 
 ## 參考文章
 越上方越晚被加入
+- [真的好想離開 Vue 3 新手村 - Day 7: 深入了解 <script setup> 語法糖](https://ithelp.ithome.com.tw/articles/10296330)
 - [What is RouterView in Vue.js?](https://stackoverflow.com/questions/71043243/what-is-routerview-in-vue-js)
     > `<RouterView />` is the same as `<router-view />`
 - [Decorative Images](https://www.w3.org/WAI/tutorials/images/decorative/)
